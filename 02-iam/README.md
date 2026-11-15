@@ -14,7 +14,8 @@ Controlling *who* can access AWS and *what* they are allowed to do.
 
 | # | Lesson | Summary |
 |---|--------|---------|
-| — | *No lessons documented yet* | — |
+| 01 | [Cloud Security with AWS IAM](lesson-01-cloud-security-with-iam.md) | 🚧 Tag-based IAM policy restricting a developer to dev EC2 instances; account alias |
+| Q1 | [Quiz 01: IAM Fundamentals](quiz-01-iam-fundamentals.md) | Policy effects, user groups, account alias, AMIs, testing access, tag-based conditions |
 
 <!-- Add a row for each new note, e.g.:
 | 01 | [Title](lesson-01-short-description.md) | One-line summary |

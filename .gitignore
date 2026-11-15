@@ -9,3 +9,6 @@ credentials
 # OS clutter
 .DS_Store
 Thumbs.db
+
+# Scratch capture file (raw notes, not published)
+tmp.md
