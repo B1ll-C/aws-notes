@@ -56,6 +56,33 @@ Tip: use GitHub's search or `grep -ri "keyword" .` to find a command, error mess
 7. **Link related notes** where useful, e.g. `See [IAM roles](../02-iam/lesson-03-iam-roles.md)`.
 8. **Commit** with a descriptive message, e.g. `Add notes: EC2 security groups`.
 
+## Flashcards
+
+Open [`flashcards.html`](flashcards.html) in a browser (double-click it, no server needed) to review cards from your lessons. Pick one deck or **All decks**, flip with <kbd>Space</kbd>, and mark cards **Got it** / **Again**. Progress is saved in your browser.
+
+Each lesson has its own deck, stored next to its note:
+
+```text
+02-iam/
+├── lesson-01-cloud-security-with-iam.md
+└── lesson-01-cloud-security-with-iam.cards.js   ← its flashcards
+```
+
+**To add a deck for a new lesson:**
+
+1. Create `<lesson-name>.cards.js` next to the lesson note:
+   ```js
+   window.DECKS.push({
+     topic: '03 · EC2',
+     title: 'Lesson 01: Launching EC2',
+     notes: '03-ec2/lesson-01-launching-ec2.md',
+     cards: [
+       ['Question?', 'Answer. Supports `code`, **bold** and \n line breaks.'],
+     ],
+   });
+   ```
+2. Add its path to the `DECK_FILES` list near the top of the `<script>` in `flashcards.html`.
+
 ## Documentation Standards
 
 - **Markdown only** (`.md`), using the [TEMPLATE.md](TEMPLATE.md) structure for every lesson.

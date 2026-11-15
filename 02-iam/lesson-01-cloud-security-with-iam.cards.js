@@ -1,0 +1,71 @@
+// Flashcards for lesson-01-cloud-security-with-iam.md: each card is [question, answer].
+window.DECKS.push({
+  topic: '02 · IAM',
+  title: 'Lesson 01: Cloud Security with AWS IAM',
+  notes: '02-iam/lesson-01-cloud-security-with-iam.md',
+  cards: [
+    // EC2
+    ['What does IAM control?',
+     'Who is **authenticated** (signed in) and **authorized** (has permissions) in an AWS account.'],
+    ['What does EC2 stand for, and what does each word mean?',
+     '**Elastic Compute Cloud**.\nElastic = flexible size and power · Compute = processing power · Cloud = reached over the internet.'],
+    ['AMI vs. instance type: what is the difference?',
+     '**AMI** = the *software* template (OS plus pre-installed apps).\n**Instance type** = the *hardware* (CPU, memory, storage, networking).'],
+    ['Why did we launch EC2 instances without a key pair, and why is it "Not recommended"?',
+     'A key pair is only needed for **SSH** access from your own terminal, and this project used the console only.\nIt’s not recommended because without one you have no secure way to get into the instance to troubleshoot it.'],
+    ['Development vs. production environment?',
+     '**Development**: where developers code, test and debug safely.\n**Production**: the live environment real users depend on.'],
+    ['Why did we tag the instances `Env = production` / `Env = development`?',
+     'To label which environment each one belongs to. Tags help with filtering, cost allocation and **access control**: IAM policies can grant permissions based on tags.'],
+
+    // Policy
+    ['In `NextWorkDevEnvironmentPolicy`, what does statement 1 (`Allow ec2:*` with a condition) do?',
+     'Allows **every** EC2 action, but only on resources tagged `Env = development`.'],
+    ['Why does the policy also `Allow ec2:Describe*` on `*`?',
+     'So the user can **see** (list and describe) all instances in the console, including production. Viewing isn’t the same as changing.'],
+    ['Why does the policy `Deny` `ec2:CreateTags` and `ec2:DeleteTags`?',
+     'Otherwise the intern could **re-tag** the production instance as `development` and get around the condition. It protects the tags the policy relies on.'],
+    ['What does `"Version": "2012-10-17"` mean in a policy?',
+     'The version of the IAM policy **language**. It’s the current one, so always use it. It is *not* the date the policy was written.'],
+    ['If one statement Allows an action and another explicitly Denies it, what wins?',
+     'The explicit **Deny** always wins.'],
+    ['What does the `Condition` block do?',
+     'It sets **when** a statement applies. Here, it narrows `"Resource": "*"` down to resources tagged `Env = development`.'],
+    ['Why was the policy description `IAM Policy for NextWork’s development environment` rejected?',
+     'The **apostrophe** isn’t an allowed character in IAM policy descriptions. Remove it.'],
+
+    // Alias, groups, users
+    ['What does an account alias change, and what does it not change?',
+     'It changes the sign-in URL from the account ID to a friendly name (`https://<alias>.signin.aws.amazon.com/console`).\nIt does **not** change security.'],
+    ['Why put the intern in a user group instead of attaching the policy to the user directly?',
+     'Permissions are managed in one place: every future intern just joins `nextwork-dev-group` and inherits the policy.'],
+    ['Why not just share your own login with the intern?',
+     'Your login has access to **production**. Every person should get their own IAM user with only the permissions they need (least privilege).'],
+    ['What does ticking "Provide user access to the AWS Management Console" do?',
+     'It lets the user sign in to the **console**. Without it, they could only use advanced methods like the CLI, SDKs or APIs.'],
+    ['"Users must create a new password at next sign-in": what should you do in real life?',
+     'Leave it **ticked**. We only unticked it in the lab to save time.'],
+    ['Two ways to share a new IAM user’s sign-in details?',
+     '1. Download the credentials `.csv` and hand it over securely.\n2. Send the sign-in URL, user name and temporary password over a secure channel.'],
+
+    // Testing
+    ['Why sign in as the IAM user in an **incognito** window?',
+     'So you stay signed in as your admin user in the normal window while testing as the intern.'],
+    ['As the intern, what happened when you tried to stop the **production** instance, and why?',
+     'It **failed** with a *not authorized* banner. The only statement allowing EC2 actions requires `Env = development`.'],
+    ['As the intern, what happened when you stopped the **development** instance?',
+     '**Success.** The instance matches the condition `Env = development`.'],
+    ['Why use the IAM Policy Simulator instead of testing as the user?',
+     'Testing as the user changes **real resources** (we actually stopped an instance), which can disrupt others. The simulator checks permissions without touching anything.'],
+    ['In the Policy Simulator, `StopInstances` was **denied** for the dev group. Why, and how did you fix the test?',
+     'The simulated resource was `*` (all instances, including production). After setting the resource to the `development`-tagged instance and re-running it, the result was **allowed**.'],
+    ['How do you see *which* statement blocks an action in the Policy Simulator?',
+     'Expand the action (e.g. `DeleteTags`) and choose **Show statement**.'],
+
+    // Wrap-up
+    ['Which resources must you delete after this project?',
+     'Both EC2 instances, the IAM user group, the IAM user, the IAM policy and the account alias.'],
+    ['What does "least privilege" mean in this project?',
+     'Give each user **only** the access they need: the intern gets full access to development and none to production.'],
+  ],
+});
