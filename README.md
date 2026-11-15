@@ -82,7 +82,7 @@ Tip: use GitHub's search or `grep -ri "keyword" .` to find a command, error mess
 | Directory | Topic | Lessons |
 |-----------|-------|---------|
 | [01-cloud-fundamentals](01-cloud-fundamentals/) | Cloud & AWS fundamentals | 0 |
-| [02-iam](02-iam/) | Identity and Access Management | 1 lesson (in progress), 1 quiz |
+| [02-iam](02-iam/) | Identity and Access Management | 1 lesson, 1 quiz |
 | [03-ec2](03-ec2/) | Elastic Compute Cloud | 0 |
 | [04-s3](04-s3/) | Simple Storage Service | 0 |
 | [projects](projects/) | Hands-on projects | 0 |
