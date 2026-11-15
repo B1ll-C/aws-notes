@@ -1,0 +1,11 @@
+# Never commit AWS secrets
+*.pem
+*.ppk
+credentials
+.aws/
+*.csv
+.env
+
+# OS clutter
+.DS_Store
+Thumbs.db
